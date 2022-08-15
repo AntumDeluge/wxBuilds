@@ -3,6 +3,8 @@
 
 ## Description
 
+*This project is currently a work-in-progress & does not yet function as intended.*
+
 Static builds of [wxWidgets](https://wxwidgets.org/) & [wxSVG](https://wxsvg.sourceforge.io/).
 
 ## Licensing
