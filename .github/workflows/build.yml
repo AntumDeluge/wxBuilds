@@ -6,25 +6,10 @@ on:
 
 jobs:
   main:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
-      - name: Set up build environment
-        run: |
-          echo "wxvers=3.0.5.1 3.1.7 3.2.0" >> $GITHUB_ENV
-          echo "wxsvgver=1.5.23" >> $GITHUB_ENV
+      - name: install dependencies
+        run: sudo apt install build-essential mingw-w64 pkgconf m4 autoconf automake
 
-      - name: Download wxWidgets sources
-        run: |
-          mkdir wxWidgets/ && cd wxWidgets/
-          for ver in ${{ env.wxvers }}; do
-            wget -O v${ver}.tar.gz https://github.com/wxWidgets/wxWidgets/archive/refs/tags/v${ver}.tar.gz
-            tar -xzf v${ver}.tar.gz
-          done
-
-      - name: Download wxSVG source
-        run: |
-          ver=${{ env.wxsvgver }}
-          mkdir wxSVG/ && cd wxSVG/
-          wget -O v${ver}.tar.bz2 \
-            https://sourceforge.net/projects/wxsvg/files/wxsvg/${ver}/wxsvg-${ver}.tar.bz2/download
-          tar -xjf v${ver}.tar.bz2
+      - name: download packages
+        run: python3 build.py download
