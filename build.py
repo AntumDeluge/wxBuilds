@@ -28,11 +28,10 @@ from libdbr.logger import getLogger
 def taskDownloadPackages():
   print("\ndownloading packages ...")
 
-  try:
-    wget = importlib.import_module("wget")
-  except ModuleNotFoundError:
+  wget = modules.getModule("wget")
+  if not wget:
     modules.installModule("wget")
-    wget = importlib.import_module("wget")
+    wget = modules.getModule("wget")
 
   wx_pre = "https://github.com/wxWidgets/wxWidgets/releases/download"
   # ~ svg_pre = "https://sourceforge.net/projects/wxsvg/files/wxsvg"
