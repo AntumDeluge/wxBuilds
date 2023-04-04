@@ -12,7 +12,9 @@ jobs:
         uses: actions/checkout@v3
 
       - name: install dependencies
-        run: sudo apt install build-essential mingw-w64 pkgconf m4 autoconf automake
+        run: |
+          sudo apt install build-essential mingw-w64 pkgconf m4 autoconf automake
+          sudo python3 build.py build-prep
 
       - name: download packages
         run: python3 build.py download

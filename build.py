@@ -26,7 +26,8 @@ from libdbr.logger import getLogger
 
 ## Download packages from remote sources.
 def taskDownloadPackages():
-  print("\ndownloading packages ...")
+  print()
+  logger.info("downloading packages ...")
 
   wget = modules.getModule("wget")
   if not wget:
@@ -95,11 +96,21 @@ def taskDownloadPackages():
         logger.error("download failed: {}".format(e))
         sys.exit(1)
 
+def taskBuildPrep():
+  print()
+  logger.info("preparing build dependencies ...")
+
+  mods_req = (("wget", None),)
+  for mod in mods_req:
+    logger.info("checking for module '{}'".format(mod[0]))
+    modules.installModule(mod[0], mod[1])
+
 def addTask(name, action, desc):
   tasks.add(name, action)
   task_list[name] = desc
 
 def initTasks():
+  addTask("build-prep", taskBuildPrep, "Prepare build dependencies.")
   addTask("download", taskDownloadPackages, "Download source packages.")
 
 ## Main insertion function.
